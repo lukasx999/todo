@@ -1,0 +1,12 @@
+* {
+  font-family: "Roboto";
+}
+
+body {
+  background-color: grey;
+}
+
+.bullet_list {
+  list-style-type: none;
+  padding-left: 0;
+}
