@@ -6,6 +6,33 @@ body {
   background-color: grey;
 }
 
-.bullet_list {
+.control_buttons {
+  float: right;
+}
+
+.button {
+  background-color: lightgrey;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.entry {
+  background-color: grey;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+}
+
+.entry li::marker {
+  font-size: 25px;
+}
+
+.list {
+  background-color: lightgrey;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.list ul {
   padding-left: 15px;
 }

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { FaPencilAlt, FaRegTrashAlt, FaArrowUp, FaArrowDown } from "react-icons/fa";
-
 import './App.css'
 
 interface Item {
@@ -11,14 +10,14 @@ interface Data {
   items: Item[],
 }
 
-interface TodoItemProps {
+interface EntryProps {
   item: Item,
   onRemove: () => void,
   onRename: (newName: string) => void,
   onMove: (up_else_down: boolean) => void,
 }
 
-function TodoItem({ item, onRemove, onRename, onMove }: TodoItemProps) {
+function Entry({ item, onRemove, onRename, onMove }: EntryProps) {
 
   const [beingRenamed, setBeingRenamed] = useState(false);
   const [newName, setNewName] = useState("");
@@ -42,19 +41,23 @@ function TodoItem({ item, onRemove, onRename, onMove }: TodoItemProps) {
   }
 
   return (
-    <div>
+    <div className="entry">
       <li>
         <span>{item.name}</span>
         {beingRenamed ?
           <>
-            <button onClick={finishRename}>Ok</button>
-            <button onClick={cancelRename}>Cancel</button>
             <input type="text" value={newName} onInput={textChanged}></input>
+            <span className="control_buttons">
+              <button className="button" onClick={finishRename}>Ok</button>
+              <button className="button" onClick={cancelRename}>Cancel</button>
+            </span>
           </> : <>
-            <button onClick={onRemove}><FaRegTrashAlt /></button>
-            <button onClick={beginRename}><FaPencilAlt /></button>
-            <button onClick={() => onMove(false)}><FaArrowDown /></button>
-            <button onClick={() => onMove(true)}><FaArrowUp /></button>
+            <span className="control_buttons">
+              <button className="button" onClick={onRemove}><FaRegTrashAlt /></button>
+              <button className="button" onClick={beginRename}><FaPencilAlt /></button>
+              <button className="button" onClick={() => onMove(false)}><FaArrowDown /></button>
+              <button className="button" onClick={() => onMove(true)}><FaArrowUp /></button>
+            </span>
           </>
         }
       </li>
@@ -62,21 +65,22 @@ function TodoItem({ item, onRemove, onRename, onMove }: TodoItemProps) {
   );
 }
 
-interface TodoListProps {
+interface ListProps {
   items: Item[],
   onItemRemove: (idx: number) => void,
   onRename: (idx: number, newName: string) => void,
   onMove: (idx: number, up_else_down: boolean) => void,
 }
 
-function TodoList({ items, onItemRemove, onRename, onMove }: TodoListProps) {
+function List({ items, onItemRemove, onRename, onMove }: ListProps) {
 
   return (
-    <div>
-      <ul className="bullet_list">
+    <div className="list">
+      <ul>
         {
           items.map((item, idx) =>
-            <TodoItem
+            <Entry
+              key={idx}
               item={item}
               onRemove={() => onItemRemove(idx)}
               onRename={newName => onRename(idx, newName)}
@@ -149,14 +153,14 @@ function App() {
   return (
     <>
       <div>
-        <TodoList
+        <List
           items={data.items}
           onItemRemove={onItemRemove}
           onRename={onItemRename}
           onMove={onMove}
         />
-        <button onClick={addItem}>Add</button>
-        <button onClick={clearItems}>Clear</button>
+        <button className="button" onClick={addItem}>Add</button>
+        <button className="button" onClick={clearItems}>Clear</button>
       </div>
     </>
   )
