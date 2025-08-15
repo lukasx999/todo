@@ -10,14 +10,13 @@ interface Data {
 }
 
 interface TodoItemProps {
- item: Item,
- onRemove: () => void,
- onRename: (newName: string) => void,
- onMoveDown: () => void,
- onMoveUp: () => void,
+  item: Item,
+  onRemove: () => void,
+  onRename: (newName: string) => void,
+  onMove: (up_else_down: boolean) => void,
 }
 
-function TodoItem({ item, onRemove, onRename, onMoveDown, onMoveUp }: TodoItemProps) {
+function TodoItem({ item, onRemove, onRename, onMove }: TodoItemProps) {
 
   const [beingRenamed, setBeingRenamed] = useState(false);
   const [newName, setNewName] = useState("");
@@ -35,25 +34,31 @@ function TodoItem({ item, onRemove, onRename, onMoveDown, onMoveUp }: TodoItemPr
     setBeingRenamed(true);
   }
 
+  function cancelRename() {
+    setNewName("");
+    setBeingRenamed(false);
+  }
+
   return (
-    <li>
-      <span>{item.name}</span>
-
-      {beingRenamed ?
-        <>
-          <button onClick={finishRename}>Ok</button>
-          <input type="text" value={newName} onInput={textChanged}></input>
-        </>
-        :
-        <>
-          <button onClick={onRemove}>Remove</button>
-          <button onClick={beginRename}>Rename</button>
-          <button onClick={onMoveDown}>Down</button>
-          <button onClick={onMoveUp}>Up</button>
-        </>
-      }
-
-    </li>
+    <div>
+      <li>
+        <span>{item.name}</span>
+        {beingRenamed ?
+          <>
+            <button onClick={finishRename}>Ok</button>
+            <button onClick={cancelRename}>Cancel</button>
+            <input type="text" value={newName} onInput={textChanged}></input>
+          </>
+          :
+          <>
+            <button onClick={onRemove}>Remove</button>
+            <button onClick={beginRename}>Rename</button>
+            <button onClick={() => onMove(false)}>Down</button>
+            <button onClick={() => onMove(true)}>Up</button>
+          </>
+        }
+      </li>
+    </div>
   );
 }
 
@@ -61,11 +66,10 @@ interface TodoListProps {
   items: Item[],
   onItemRemove: (idx: number) => void,
   onRename: (idx: number, newName: string) => void,
-  onMoveDown: (idx: number) => void,
-  onMoveUp: (idx: number) => void,
+  onMove: (idx: number, up_else_down: boolean) => void,
 }
 
-function TodoList({ items, onItemRemove, onRename, onMoveDown, onMoveUp }: TodoListProps) {
+function TodoList({ items, onItemRemove, onRename, onMove }: TodoListProps) {
 
   return (
     <div>
@@ -76,8 +80,7 @@ function TodoList({ items, onItemRemove, onRename, onMoveDown, onMoveUp }: TodoL
               item={item}
               onRemove={() => onItemRemove(idx)}
               onRename={newName => onRename(idx, newName)}
-              onMoveDown={() => onMoveDown(idx)}
-              onMoveUp={() => onMoveUp(idx)}
+              onMove={up_else_down => onMove(idx, up_else_down)}
             />
           )
         }
@@ -93,6 +96,8 @@ function App() {
       { name: "foo", },
       { name: "bar", },
       { name: "baz", },
+      { name: "qux", },
+      { name: "quux", },
     ],
   });
 
@@ -116,34 +121,43 @@ function App() {
     setData(nextData);
   }
 
-  function onMoveDown(idx: number) {
+  function onMove(idx: number, up_else_down: boolean) {
     const nextData = { ...data };
     const xs = nextData.items;
-    const isLastElem = idx+1 >= xs.length;
-    if (isLastElem) return;
-    [xs[idx], xs[idx+1]] = [xs[idx+1], xs[idx]];
+
+    if (up_else_down) {
+      const isFirstElem = idx === 0;
+      if (isFirstElem) return;
+      [xs[idx], xs[idx - 1]] = [xs[idx - 1], xs[idx]];
+
+    } else {
+      const isLastElem = idx + 1 >= xs.length;
+      if (isLastElem) return;
+      [xs[idx], xs[idx + 1]] = [xs[idx + 1], xs[idx]];
+
+    }
+
     setData(nextData);
   }
 
-  function onMoveUp(idx: number) {
+  function clearItems() {
     const nextData = { ...data };
-    const xs = nextData.items;
-    const isFirstElem = idx === 0;
-    if (isFirstElem) return;
-    [xs[idx], xs[idx-1]] = [xs[idx-1], xs[idx]];
+    nextData.items = [];
     setData(nextData);
   }
 
   return (
     <>
-      <TodoList
-        items={data.items}
-        onItemRemove={onItemRemove}
-        onRename={onItemRename}
-        onMoveDown={onMoveDown}
-        onMoveUp={onMoveUp}
-      />
-      <button onClick={addItem}>Add</button>
+      <div>
+        <TodoList
+          items={data.items}
+          onItemRemove={onItemRemove}
+          onRename={onItemRename}
+          onMove={onMove}
+        />
+        <button onClick={addItem}>Add</button>
+        <button onClick={clearItems}>Clear</button>
+      </div>
     </>
   )
 }
