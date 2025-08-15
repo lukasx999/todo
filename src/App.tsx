@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { FaPencilAlt, FaRegTrashAlt, FaArrowUp, FaArrowDown } from "react-icons/fa";
+
 import './App.css'
 
 interface Item {
@@ -48,13 +50,11 @@ function TodoItem({ item, onRemove, onRename, onMove }: TodoItemProps) {
             <button onClick={finishRename}>Ok</button>
             <button onClick={cancelRename}>Cancel</button>
             <input type="text" value={newName} onInput={textChanged}></input>
-          </>
-          :
-          <>
-            <button onClick={onRemove}>Remove</button>
-            <button onClick={beginRename}>Rename</button>
-            <button onClick={() => onMove(false)}>Down</button>
-            <button onClick={() => onMove(true)}>Up</button>
+          </> : <>
+            <button onClick={onRemove}><FaRegTrashAlt /></button>
+            <button onClick={beginRename}><FaPencilAlt /></button>
+            <button onClick={() => onMove(false)}><FaArrowDown /></button>
+            <button onClick={() => onMove(true)}><FaArrowUp /></button>
           </>
         }
       </li>
