@@ -1,99 +1,9 @@
 import { useState } from 'react'
-import { FaPencilAlt, FaRegTrashAlt, FaArrowUp, FaArrowDown } from "react-icons/fa";
+import type { Data } from './common.ts';
+import List from './List.tsx';
 import './App.css'
 
-interface Item {
-  name: string,
-}
-
-interface Data {
-  items: Item[],
-}
-
-interface EntryProps {
-  item: Item,
-  onRemove: () => void,
-  onRename: (newName: string) => void,
-  onMove: (up_else_down: boolean) => void,
-}
-
-function Entry({ item, onRemove, onRename, onMove }: EntryProps) {
-
-  const [beingRenamed, setBeingRenamed] = useState(false);
-  const [newName, setNewName] = useState("");
-
-  function finishRename() {
-    onRename(newName);
-    setBeingRenamed(false);
-  }
-
-  function textChanged(event: any) {
-    setNewName(event.target.value);
-  }
-
-  function beginRename() {
-    setBeingRenamed(true);
-  }
-
-  function cancelRename() {
-    setNewName("");
-    setBeingRenamed(false);
-  }
-
-  return (
-    <div className="entry">
-      <li>
-        <span>{item.name}</span>
-        {beingRenamed ?
-          <>
-            <input type="text" value={newName} onInput={textChanged}></input>
-            <span className="control_buttons">
-              <button className="button" onClick={finishRename}>Ok</button>
-              <button className="button" onClick={cancelRename}>Cancel</button>
-            </span>
-          </> : <>
-            <span className="control_buttons">
-              <button className="button" onClick={onRemove}><FaRegTrashAlt /></button>
-              <button className="button" onClick={beginRename}><FaPencilAlt /></button>
-              <button className="button" onClick={() => onMove(false)}><FaArrowDown /></button>
-              <button className="button" onClick={() => onMove(true)}><FaArrowUp /></button>
-            </span>
-          </>
-        }
-      </li>
-    </div>
-  );
-}
-
-interface ListProps {
-  items: Item[],
-  onItemRemove: (idx: number) => void,
-  onRename: (idx: number, newName: string) => void,
-  onMove: (idx: number, up_else_down: boolean) => void,
-}
-
-function List({ items, onItemRemove, onRename, onMove }: ListProps) {
-
-  return (
-    <div className="list">
-      <ul>
-        {
-          items.map((item, idx) =>
-            <Entry
-              key={idx}
-              item={item}
-              onRemove={() => onItemRemove(idx)}
-              onRename={newName => onRename(idx, newName)}
-              onMove={up_else_down => onMove(idx, up_else_down)}
-            />
-          )
-        }
-      </ul>
-    </div>
-  );
-}
-
-function App() {
+export default function App() {
 
   const [data, setData] = useState<Data>({
     items: [
@@ -165,5 +75,3 @@ function App() {
     </>
   )
 }
-
-export default App
