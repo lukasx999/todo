@@ -11,8 +11,8 @@ interface ListProps {
 export default function List({ items, onItemRemove, onRename, onMove }: ListProps) {
 
   return (
-    <div className="list">
-      <ul>
+    <div className="container">
+      <ul className="list">
         {
           items.map((item, idx) =>
             <Entry
