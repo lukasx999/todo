@@ -62,14 +62,20 @@ export default function App() {
 
   return (
     <>
-      <h1>TODO</h1>
+      <h1 className="title">TODO</h1>
+      <hr className="line" />
 
-      <List items={data.items} onItemRemove={onItemRemove} onRename={onItemRename} onMove={onMove} />
-
-      <div className="container">
+      <span className="container button_group buttons_add_clear">
         <button className="button" onClick={addItem}>Add</button>
         <button className="button" onClick={clearItems}>Clear</button>
-      </div>
+      </span>
+
+      <List
+        items={data.items}
+        onItemRemove={onItemRemove}
+        onRename={onItemRename}
+        onMove={onMove}
+      />
 
     </>
   )

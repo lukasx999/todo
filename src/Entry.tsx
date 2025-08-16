@@ -44,7 +44,7 @@ export default function Entry({ item, onRemove, onRename, onMove }: EntryProps) 
               <button className="button" onClick={cancelRename}>Cancel</button>
             </span>
           </> : <>
-            <span className="control_buttons">
+            <span className="control_buttons button_group">
               <button className="button" onClick={onRemove}><FaRegTrashAlt /></button>
               <button className="button" onClick={beginRename}><FaPencilAlt /></button>
               <button className="button" onClick={() => onMove(false)}><FaArrowDown /></button>

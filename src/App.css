@@ -1,26 +1,46 @@
 * {
-  font-family: "Roboto";
+  font-family: "Helvetica";
 }
 
 body {
-  background-color: grey;
+  background-color: rgb(85, 83, 83);
+}
+
+.line {
+  border-color: white;
+  width: 75%;
+}
+
+.button_group {
+  display: flex;
+  gap: 5px;
 }
 
 .control_buttons {
   float: right;
 }
 
+.buttons_add_clear {
+  padding: 7px;
+}
+
+.container_list {
+  padding: 3px;
+}
+
 .button {
-  background-color: lightgrey;
+  border: none;
+  background-color: white;
   border-radius: 5px;
   cursor: pointer;
+  border-radius: 2px;
 }
 
 .entry {
   background-color: grey;
   border-radius: 5px;
-  margin: 10px;
-  padding: 5px;
+  margin: 5px;
+  padding: 3px;
 }
 
 .entry li::marker {
@@ -30,10 +50,14 @@ body {
 .container {
   background-color: lightgrey;
   border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
+  margin: 2% 20%;
 }
 
 .list {
   padding-left: 15px;
+}
+
+.title {
+  color: lightskyblue;
+  text-align: center;
 }
