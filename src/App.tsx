@@ -63,7 +63,6 @@ export default function App() {
   return (
     <>
       <h1 className="title">TODO</h1>
-      <hr className="line" />
 
       <span className="container button_group buttons_add_clear">
         <button className="button" onClick={addItem}>Add</button>

@@ -6,17 +6,12 @@ body {
   background-color: rgb(85, 83, 83);
 }
 
-.line {
-  border-color: white;
-  width: 75%;
-}
-
 .button_group {
   display: flex;
   gap: 5px;
 }
 
-.control_buttons {
+.entry_buttons {
   float: right;
 }
 
