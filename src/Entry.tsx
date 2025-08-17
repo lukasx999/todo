@@ -39,7 +39,7 @@ export default function Entry({ item, onRemove, onRename, onMove }: EntryProps) 
         {beingRenamed ?
           <>
             <input type="text" value={newName} onInput={textChanged}></input>
-            <span className="control_buttons">
+            <span className="control_buttons button_group">
               <button className="button" onClick={finishRename}>Ok</button>
               <button className="button" onClick={cancelRename}>Cancel</button>
             </span>

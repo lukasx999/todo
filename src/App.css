@@ -37,10 +37,11 @@ body {
 }
 
 .entry {
+  font-size: 20px;
   background-color: grey;
   border-radius: 5px;
   margin: 5px;
-  padding: 3px;
+  padding: 5px;
 }
 
 .entry li::marker {
@@ -49,7 +50,7 @@ body {
 
 .container {
   background-color: lightgrey;
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 2% 20%;
 }
 
