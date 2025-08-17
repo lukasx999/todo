@@ -40,15 +40,15 @@ export default function Entry({ item, onRemove, onRename, onMove }: EntryProps) 
           <>
             <input type="text" value={newName} onInput={textChanged}></input>
             <span className="control_buttons button_group">
-              <button className="button" onClick={finishRename}>Ok</button>
-              <button className="button" onClick={cancelRename}>Cancel</button>
+              <button onClick={finishRename}>Ok</button>
+              <button onClick={cancelRename}>Cancel</button>
             </span>
           </> : <>
             <span className="entry_buttons button_group">
-              <button className="button" onClick={onRemove}><FaRegTrashAlt /></button>
-              <button className="button" onClick={beginRename}><FaPencilAlt /></button>
-              <button className="button" onClick={() => onMove(false)}><FaArrowDown /></button>
-              <button className="button" onClick={() => onMove(true)}><FaArrowUp /></button>
+              <button onClick={onRemove}><FaRegTrashAlt /></button>
+              <button onClick={beginRename}><FaPencilAlt /></button>
+              <button onClick={() => onMove(false)}><FaArrowDown /></button>
+              <button onClick={() => onMove(true)}><FaArrowUp /></button>
             </span>
           </>
         }

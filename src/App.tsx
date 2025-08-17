@@ -65,8 +65,8 @@ export default function App() {
       <h1 className="title">TODO</h1>
 
       <span className="container button_group buttons_add_clear">
-        <button className="button" onClick={addItem}>Add</button>
-        <button className="button" onClick={clearItems}>Clear</button>
+        <button onClick={addItem}>Add</button>
+        <button onClick={clearItems}>Clear</button>
       </span>
 
       <List
