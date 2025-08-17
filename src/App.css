@@ -3,7 +3,8 @@
 }
 
 body {
-  background-color: rgb(85, 83, 83);
+  background-color: #34495e;
+  
 }
 
 .button_group {
@@ -33,7 +34,8 @@ button {
 
 .entry {
   font-size: 20px;
-  background-color: grey;
+  color: #e4f1fe;
+  background-color: #34495e;
   border-radius: 5px;
   margin: 5px;
   padding: 5px;
@@ -41,10 +43,11 @@ button {
 
 .entry li::marker {
   font-size: 25px;
+  color: #34495e;
 }
 
 .container {
-  background-color: lightgrey;
+  background-color: #e4f1fe;
   border-radius: 5px;
   margin: 2% 20%;
 }
@@ -54,6 +57,6 @@ button {
 }
 
 .title {
-  color: lightskyblue;
+  color: #8dc6ff;
   text-align: center;
 }
